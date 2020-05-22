@@ -9,7 +9,7 @@ const posts = {
     createPost: async({ title, mood, entry}) => {
         const SQL = `INSERT INTO posts (title, mood, entry) VALUES ($1, $2, $3) RETURNING *`;
 
-        return (await client.query(SQL, [title, mood, entry)).rows[0];
+        return (await client.query(SQL, [title, mood, entry])).rows[0];
     },
     // updateUser is only updating general items, not password
     // Add update later for this
@@ -22,6 +22,9 @@ const posts = {
         const SQL = `DELETE FROM posts WHERE id=$1`
 
         return (await client.query(SQL, [id]))
+    },
+    getPosts: async({userId}) => {
+        return (await client.query(`SELECT * FROM posts WHERE "userId"=$1`, [userId]))
     }
 };
 

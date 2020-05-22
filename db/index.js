@@ -1,5 +1,5 @@
 const client = require('./client');
-const models = { users } = require('./models')
+const models = { users, posts, check_in } = require('./models')
 
 const sync = async() => {
 
