@@ -1,4 +1,5 @@
 const client = require('../client');
+const { hash } = require('../auth')
 
 const users = {
     // Read all is for admin purposes only
@@ -9,7 +10,7 @@ const users = {
     createUser: async({ firstName, lastName, email, password }) => {
         const SQL = `INSERT INTO users ("firstName", "lastName", email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
 
-        return (await client.query(SQL, [firstName, lastName, email, password])).rows[0]
+        return (await client.query(SQL, [firstName, lastName, email, await hash(password)])).rows[0]
     },
     // updateUser is only updating general items, not password
     // Add update later for this

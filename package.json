@@ -8,7 +8,7 @@
     "test:dev": "DATABASE_URL=postgres://localhost/creative_app npm run test -- --watch",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "start:dev": "nodemon server --ignore dist/ --ignore src/ & npm run build:dev"
+    "start:dev": "npm run build:dev & JWT=foobar nodemon server.js --ignore dist/ --ignore src/"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,10 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
     "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
     "path": "^0.12.7",
     "pg": "^8.2.1",
     "qs": "^6.9.4"

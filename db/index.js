@@ -1,5 +1,6 @@
 const client = require('./client');
 const models = { users, posts, check_in } = require('./models')
+const { authenticate, compare, findUserFromToken, hash } = require('./auth')
 
 const sync = async() => {
 
@@ -17,7 +18,7 @@ const sync = async() => {
             "firstName" VARCHAR(100),
             "lastName" VARCHAR(100),
             email VARCHAR(100) NOT NULL UNIQUE,
-            password VARCHAR(50),
+            password VARCHAR(100),
             CHECK (char_length(email) > 0)
         );
 
@@ -113,5 +114,9 @@ const sync = async() => {
 
 module.exports = {
     sync,
-    models
+    models,
+    authenticate,
+    compare,
+    findUserFromToken,
+    hash
 }
