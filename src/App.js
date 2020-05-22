@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Login from './Login';
 import Landing from './Landing';
 import Journal from './Journal';
+import CheckIn from './CheckIn';
 import { login } from '../methods';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ const App = () => {
     const [auth, setAuth] = useState({})
     const [posts, setPosts] = useState([]);
     const [checkIn, setCheckIn] = useState([]);
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
@@ -23,11 +25,22 @@ const App = () => {
     useEffect(() => {
         if(auth.id){
             axios.get(`/api/posts/getPosts/${auth.id}`, login.headers())
-                .then(posts => {
-                    setPosts(posts.data);
-                })
+                .then(posts => setPosts(posts.data))
+                .catch(ex => setError(ex));
+
+            axios.get(`/api/checkIns/getCheckIns/${auth.id}`, login.headers())
+                .then(checkIns => setCheckIn(checkIns.data))
+                .catch(ex => setError(ex));
         }
-    }, [auth])
+    }, [auth]);
+
+    useEffect(() => {
+        if(auth.id){
+            axios.get(`/api/checkIns/getCheckIns/${auth.id}`, login.headers())
+                .then(checkIns => setCheckIn(checkIns.data))
+                .catch(ex => setError(ex));
+        }
+    }, [auth]);
 
     const exchangeTokenForAuth = async() => {
         const response = await axios.get('/api/auth', login.headers())
@@ -67,6 +80,7 @@ const App = () => {
                     <div>
                         <Landing />
                         <Journal posts={ posts } />
+                        <CheckIn checks={ checkIn } />
                     </div>
             }
         </div>

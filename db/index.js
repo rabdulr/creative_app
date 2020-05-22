@@ -35,7 +35,8 @@ const sync = async() => {
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             "userId" UUID REFERENCES users(id),
             mood moods,
-            note TEXT
+            note TEXT,
+            "datePosted" DATE NOT NULL DEFAULT CURRENT_DATE
         );
     `;
 

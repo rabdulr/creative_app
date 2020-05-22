@@ -24,7 +24,7 @@ const check_in = {
         return (await client.query(SQL, [id]))
     },
     getCheckIns: async({userId}) => {
-        return (await client.query(`SELECT * FROM check_in WHERE "userId"=$1`, [userId]))
+        return (await client.query(`SELECT * FROM check_in WHERE "userId"=$1`, [userId])).rows;
     }
 };
 
