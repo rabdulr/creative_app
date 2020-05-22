@@ -39,6 +39,76 @@ const sync = async() => {
     `;
 
     await client.query(SQL)
+
+    const _users = {
+        test: {
+            firstName: 'test',
+            lastName: 'account',
+            email: 'test@createtest.com',
+            password: 'test'
+        },
+        red: {
+            firstName: 'red',
+            lastName: 'abdul rahim',
+            email: 'rabdulr@icloud.com',
+            password: 'test'
+        }
+    }
+
+    const [test, red] = await Promise.all(Object.values(_users).map(user => users.createUser(user)))
+
+    const _posts = {
+        post1: {
+            userId: red.id,
+            mood: 'Angry',
+            title: `I'm So Very Angry`,
+            entry: 'So very angry about the day'
+        },
+        post2: {
+            userId: test.id,
+            mood: 'Grateful',
+            title: 'So Happy',
+            entry: `I'm oh so very happy`
+        }
+    }
+
+    const [post1, post2] = await Promise.all(Object.values(_posts).map(post => posts.createPost(post)))
+
+    const _checkIn = {
+        checkIn1: {
+            userId: red.id,
+            mood: 'Happy',
+            note: `I'm doing this!`
+        },
+        checkIn2: {
+            userId: test.id,
+            mood: 'Depressed',
+            note: 'Failed a test'
+        }
+    }
+
+    const [checkIn1, checkIn2] = await Promise.all(Object.values(_checkIn).map(checkIn => check_in.createCheckIn(checkIn)))
+
+    const userMap = (await users.readAll()).reduce((acc, user) => {
+        acc[user.firstName] = user;
+        return acc;
+    }, {});
+
+    const postMap = (await posts.readAll()).reduce((acc, post) => {
+        acc[post.title] = post;
+        return acc;
+    }, {});
+
+    const checkInMap = (await check_in.readAll()).reduce((acc, checkIn) => {
+        acc[checkIn.mood] = checkIn;
+        return acc;
+    }, {}); 
+
+    return {
+        users: userMap,
+        posts: postMap,
+        checkIns: checkInMap
+    }
 };
 
 module.exports = {

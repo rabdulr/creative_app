@@ -6,10 +6,10 @@ const check_in = {
     readAll: async() => {
         return (await client.query('SELECT * FROM check_in')).rows;
     },
-    createCheckIn: async({ mood, note}) => {
-        const SQL = `INSERT INTO check_in (mood, note) VALUES ($1, $2) RETURNING *`;
+    createCheckIn: async({ mood, note, userId}) => {
+        const SQL = `INSERT INTO check_in (mood, note, "userId") VALUES ($1, $2, $3) RETURNING *`;
 
-        return (await client.query(SQL, [mood, note])).rows[0];
+        return (await client.query(SQL, [mood, note, userId])).rows[0];
     },
     // updateUser is only updating general items, not password
     // Add update later for this

@@ -6,7 +6,7 @@ const users = {
     readAll: async() => {
         return (await client.query('SELECT * FROM users')).rows;
     },
-    create: async({ firstName, lastName, email, password }) => {
+    createUser: async({ firstName, lastName, email, password }) => {
         const SQL = `INSERT INTO users ("firstName", "lastName", email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
 
         return (await client.query(SQL, [firstName, lastName, email, password])).rows[0]

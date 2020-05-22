@@ -15,7 +15,7 @@ const Login = () => {
                 <label>Password: 
                     <input type='password' placeholder='password' onChange={ ev => setPassword(ev.target.value)} value={ password }></input>
                 </label>
-                <button disabled={!password && !email} onClick={() => alert('Not set yet')}>Login</button>
+                <button disabled={!password || !email} onClick={() => alert('Not set yet')}>Login</button>
                 <button onClick={() => alert('Not set yet')}>Create User</button>
         </div>
     )

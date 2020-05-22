@@ -6,10 +6,10 @@ const posts = {
     readAll: async() => {
         return (await client.query('SELECT * FROM posts')).rows;
     },
-    createPost: async({ title, mood, entry}) => {
-        const SQL = `INSERT INTO posts (title, mood, entry) VALUES ($1, $2, $3) RETURNING *`;
+    createPost: async({ title, mood, entry, userId}) => {
+        const SQL = `INSERT INTO posts (title, mood, entry, "userId") VALUES ($1, $2, $3, $4) RETURNING *`;
 
-        return (await client.query(SQL, [title, mood, entry])).rows[0];
+        return (await client.query(SQL, [title, mood, entry, userId])).rows[0];
     },
     // updateUser is only updating general items, not password
     // Add update later for this
