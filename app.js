@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const db = require('./db');
+const api = require('./api')
 
 app.use(express.json());
 
@@ -54,5 +55,8 @@ app.post('/api/auth', (req, res, next) => {
 app.get('/api/auth', isLoggedIn, (req, res, next) => {
     res.send(req.user);
 });
+
+app.use('/api/posts', api.posts.router)
+app.use('/api/checkIns', api.checkIn.router)
 
 module.exports = app;

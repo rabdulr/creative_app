@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Login from './Login.js';
-import Landing from './Landing.js';
+import Login from './Login';
+import Landing from './Landing';
+import Journal from './Journal';
 import { login } from '../methods';
 import axios from 'axios';
 
 const App = () => {
     const [auth, setAuth] = useState({})
+    const [posts, setPosts] = useState([]);
+    const [checkIn, setCheckIn] = useState([]);
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
@@ -16,6 +19,15 @@ const App = () => {
             }
         }
     }, [auth]);
+
+    useEffect(() => {
+        if(auth.id){
+            axios.get(`/api/posts/getPosts/${auth.id}`, login.headers())
+                .then(posts => {
+                    setPosts(posts.data);
+                })
+        }
+    }, [auth])
 
     const exchangeTokenForAuth = async() => {
         const response = await axios.get('/api/auth', login.headers())
@@ -40,14 +52,22 @@ const App = () => {
             <h1>Creative_App Prototype</h1>
             <span>
                 {
-                    auth.id && <button onClick={ logOut }>Sign Out</button>
+                    auth.id && 
+                    <div>
+                        <h3>Welcome, { auth.firstName }!</h3>
+                        <button onClick={ logOut }>Sign Out</button>
+                    </div>
                 }
             </span>
             {
                 !auth.id && <Login login = { sendLogin }/>
             }
             { 
-                auth.id && <Landing />
+                auth.id && 
+                    <div>
+                        <Landing />
+                        <Journal posts={ posts } />
+                    </div>
             }
         </div>
     )

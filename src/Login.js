@@ -10,7 +10,6 @@ const Login = ({ login }) => {
         login(credentials);
         setEmail('');
         setPassword('');
-        alert('Logged in!');
     }
 
 

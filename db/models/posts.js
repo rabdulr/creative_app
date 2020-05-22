@@ -24,7 +24,7 @@ const posts = {
         return (await client.query(SQL, [id]))
     },
     getPosts: async({userId}) => {
-        return (await client.query(`SELECT * FROM posts WHERE "userId"=$1`, [userId]))
+        return (await client.query(`SELECT * FROM posts WHERE "userId"=$1`, [userId])).rows;
     }
 };
 
