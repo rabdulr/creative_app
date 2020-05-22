@@ -1,12 +1,9 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-
-app.use('/dist', express.static(path.join(__dirname, 'dist')));
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.get('/', (req, res, next)=> res.sendFile(path.join(__dirname, 'index.html')));
+const db = require('./db');
+const app = require('./app');
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, ()=> console.log(`Listening on port ${port}`))
+db.sync()
+    .then(() => {
+        app.listen(port, ()=> console.log(`Listening on port ${port}`))
+    })
