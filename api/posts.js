@@ -11,4 +11,10 @@ router.get('/getPosts/:userId', (req, res, next) => {
         .catch(next)
 });
 
+router.post('/postEntry', (req, res, next) => {
+    posts.createPost(req.body)
+        .then(entry => res.send(entry))
+        .catch(next)
+});
+
 module.exports = { router }

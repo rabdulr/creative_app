@@ -9,6 +9,7 @@ const Landing = () => {
                 <li>Show the last thought that was created</li>
                 <li>Analytics of some sort</li>
                 <li>Place or navigation to add thoughts and what not</li>
+                <li>A user edit section to change their information</li>
             </ul>
             <h2>Navigation</h2>
             <ul>

@@ -8,7 +8,7 @@
     "test:dev": "DATABASE_URL=postgres://localhost/creative_app npm run test -- --watch",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "start:dev": "npm run build:dev & JWT=foobar nodemon server.js --ignore dist/ --ignore src/"
+    "start:dev": "JWT=foobar nodemon server --ignore dist/ --ignore src/ & npm run build:dev"
   },
   "keywords": [],
   "author": "",

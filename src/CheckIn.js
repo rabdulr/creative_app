@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { moods } from '../methods';
 
-const CheckIn = ({ checks }) => {
-    const [checkIns, setCheckIns] = useState([])
+const CheckIn = ({ checks, addMood }) => {
+    const [checkIns, setCheckIns] = useState([]);
+    const [mood, setMood] = useState('');
+    const [note, setNote] = useState('')
 
     useEffect(() => {
         if(checks) {setCheckIns(checks)};
     }, [checks]);
+
+    const createMood = () => {
+        const newMood = { mood, note };
+        addMood(newMood);
+        setMood('');
+        setNote('')
+    }
 
     return(
         <div id='checkIn-page'>
@@ -24,6 +34,22 @@ const CheckIn = ({ checks }) => {
                     })
                 }
             </ul>
+            <div id='create-mood'>
+                <label>Mood: 
+                    <select onChange={ ev => setMood(ev.target.value) } value={ mood }>
+                        <option value=''>-- Select Mood --</option>
+                            {
+                                moods.map(mood => {
+                                    return(
+                                        <option value={ mood } key={ mood }>{ mood }</option>
+                                    )
+                                })
+                            }
+                    </select>
+                </label>
+                <label>Note: <textarea placeholder='Insert entry?' onChange={ ev => setNote(ev.target.value) } value={ note }></textarea></label>
+                <button disabled={ !mood || !note } onClick={ () => createMood() }>Create Post</button>
+            </div>
         </div>
     )
 };

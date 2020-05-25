@@ -19,6 +19,7 @@ const sync = async() => {
             "lastName" VARCHAR(100),
             email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(100),
+            created DATE NOT NULL DEFAULT CURRENT_DATE,
             CHECK (char_length(email) > 0)
         );
 

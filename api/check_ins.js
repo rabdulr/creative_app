@@ -11,4 +11,10 @@ router.get('/getCheckIns/:userId', (req, res, next) => {
         .catch(next)
 });
 
+router.post('/addMood', (req, res, next) => {
+    check_in.createCheckIn(req.body)
+        .then(currentMood => res.send(currentMood))
+        .catch(next)
+});
+
 module.exports = { router }

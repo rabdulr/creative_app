@@ -42,6 +42,8 @@ const App = () => {
         }
     }, [auth]);
 
+
+    // Login options, unsure how to move out of app main space
     const exchangeTokenForAuth = async() => {
         const response = await axios.get('/api/auth', login.headers())
             .then(user => setAuth(user.data))
@@ -57,6 +59,24 @@ const App = () => {
     const logOut = () => {
         window.localStorage.removeItem('token');
         setAuth({})
+    }
+
+    // Post options, unsure how to move out of main space
+    const postEntry = (journalEntry) => {
+        axios.post('/api/posts/postEntry', { ...journalEntry, userId: auth.id }, login.headers())
+            .then(entry => {
+                setPosts([...posts, entry.data])
+            })
+            .catch(ex => setError(ex))
+    };
+
+    // Mood/Check-in options, unsure how to move out of main space
+    const addMood = (newMood) => {
+        axios.post('/api/checkIns/addMood', { ...newMood, userId: auth.id }, login.headers())
+            .then(mood => {
+                setCheckIn([...checkIn, mood.data])
+            })
+            .catch(ex => setError(ex))
     }
 
 
@@ -79,8 +99,8 @@ const App = () => {
                 auth.id && 
                     <div>
                         <Landing />
-                        <Journal posts={ posts } />
-                        <CheckIn checks={ checkIn } />
+                        <Journal posts={ posts } postEntry={ postEntry }/>
+                        <CheckIn checks={ checkIn } addMood={ addMood }/>
                     </div>
             }
         </div>
