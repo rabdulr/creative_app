@@ -79,10 +79,17 @@ const App = () => {
             .catch(ex => setError(ex))
     }
 
+    // Create User should verify whether the email exists in DB first
+    const createUser = async(credentials) => {
+        const newUser = (await axios.post('/api/users/createUser', credentials)).data;
+        sendLogin(credentials);
+    }
+
 
     return(
         <div>
             <h1>Creative_App Prototype</h1>
+            <div id='error'>{ error }</div>
             <span>
                 {
                     auth.id && 
@@ -93,7 +100,7 @@ const App = () => {
                 }
             </span>
             {
-                !auth.id && <Login login = { sendLogin }/>
+                !auth.id && <Login login = { sendLogin } createUser={ createUser }/>
             }
             { 
                 auth.id && 

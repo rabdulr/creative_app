@@ -56,7 +56,8 @@ app.get('/api/auth', isLoggedIn, (req, res, next) => {
     res.send(req.user);
 });
 
-app.use('/api/posts', api.posts.router)
-app.use('/api/checkIns', api.checkIn.router)
+app.use('/api/users', api.users.router);
+app.use('/api/posts', api.posts.router);
+app.use('/api/checkIns', api.checkIn.router);
 
 module.exports = app;
