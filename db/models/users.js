@@ -8,9 +8,17 @@ const users = {
         return (await client.query('SELECT * FROM users')).rows;
     },
     createUser: async({ firstName, lastName, email, password }) => {
-        const SQL = `INSERT INTO users ("firstName", "lastName", email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
 
-        return (await client.query(SQL, [firstName, lastName, email, await hash(password)])).rows[0]
+        const exists = (await client.query(`SELECT * FROM users WHERE email=$1`, [email])).rows[0]
+        console.log(exists)
+        
+        if(exists){
+            const SQL = `INSERT INTO users ("firstName", "lastName", email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
+    
+            return (await client.query(SQL, [firstName, lastName, email, await hash(password)])).rows[0]
+        } else {
+            return false;
+        }
     },
     // updateUser is only updating general items, not password
     // Add update later for this

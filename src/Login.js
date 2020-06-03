@@ -31,9 +31,6 @@ const Login = ({ login, createUser }) => {
             return;
         }
         const credentials = { firstName, lastName, email: newEmail, password: newPassword};
-        console.log('Pre-Creds: ', credentials)
-        // const user = await axios.post('/api/createUser', credentials)
-        // console.log(user)
         createUser(credentials);
     }
 

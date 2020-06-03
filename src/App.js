@@ -79,9 +79,13 @@ const App = () => {
             .catch(ex => setError(ex))
     }
 
-    // Create User should verify whether the email exists in DB first
+    // Create User should verify whether the email exists in DB first -- done
     const createUser = async(credentials) => {
         const newUser = (await axios.post('/api/users/createUser', credentials)).data;
+        if(!newUser){
+            setError('User already exists');
+            return;
+        }
         sendLogin(credentials);
     }
 
