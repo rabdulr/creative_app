@@ -51,7 +51,11 @@ const App = () => {
     };
 
     const sendLogin = async(credentials) => {
+        setError('')
         const token = (await axios.post('/api/auth', credentials)).data.token;
+        if (!token){
+            setError('Invalid email or password')
+        }
         window.localStorage.setItem('token', token);
         exchangeTokenForAuth();
     };

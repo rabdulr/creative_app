@@ -35,7 +35,7 @@ app.use((req, res, next) => {
         .catch((ex) => {
             const error = Error('Not Authorized');
             error.status = 401;
-            next(error);
+            return next(error);
         });
 });
 
@@ -48,6 +48,7 @@ app.post('/api/auth', (req, res, next) => {
             console.log('Error from db.authenticate: ', test_err);
             const error = Error('Not Authorized');
             error.status = 401;
+            res.send(error).status(401);
             next(error)
         })
 })

@@ -13,7 +13,7 @@ const Login = ({ login, createUser }) => {
 
     const createCred = () => {
         const credentials = { email, password };
-        login(credentials);
+        login(credentials)
         setEmail('');
         setPassword('');
     }

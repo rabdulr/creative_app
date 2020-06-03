@@ -5,4 +5,9 @@ body {
 #user-login, #create-user {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+#user-login > button, #create-user > button {
+    margin: .5rem 20% .5rem 20%;
 }
