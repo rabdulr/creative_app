@@ -50,7 +50,7 @@ const Journal = ({ posts, postEntry }) => {
                             }
                     </select>
                 </label>
-                <label>Entry: <textarea placeholder='Insert entry?' onChange={ ev => setEntry(ev.target.value) } value={ entry }></textarea></label>
+                <label>Entry: <textarea placeholder='Insert entry?' onChange={ ev => setEntry(ev.target.value) } value={ entry } rows='5'></textarea></label>
                 <button disabled={ !mood || !entry || !title } onClick={ () => createEntry() }>Create Post</button>
             </div>
         </div>

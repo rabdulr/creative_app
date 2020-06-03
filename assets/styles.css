@@ -11,3 +11,13 @@ body {
 #user-login > button, #create-user > button {
     margin: .5rem 20% .5rem 20%;
 }
+
+#user-page, #create-mood, #create-post {
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    height: 100%;
+    width: 100%;
+}

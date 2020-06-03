@@ -4,6 +4,7 @@ import Landing from './Landing';
 import Journal from './Journal';
 import CheckIn from './CheckIn';
 import { login } from '../methods';
+import User from './User';
 import axios from 'axios';
 
 const App = () => {
@@ -114,6 +115,7 @@ const App = () => {
                 auth.id && 
                     <div>
                         <Landing />
+                        <User auth={ auth } />
                         <Journal posts={ posts } postEntry={ postEntry }/>
                         <CheckIn checks={ checkIn } addMood={ addMood }/>
                     </div>
