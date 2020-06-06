@@ -3,13 +3,41 @@ import { moods } from '../methods';
 
 const Journal = ({ posts, postEntry }) => {
     const [entries, setEntries] = useState([]);
+    const [editEntry, setEditEntries] = useState({});
     const [title, setTitle] = useState('');
     const [mood, setMood] = useState('');
-    const [entry, setEntry] =useState('')
+    const [entry, setEntry] = useState('');
+    const [editMood, setEditMood] = useState('')
 
     useEffect(() => {
-        if(posts) {setEntries(posts)};
-    }, [posts])
+        if(posts) {
+            setEntries(posts.map(post => {
+                console.log(post);
+                post.display = false;
+                return post;
+            }));
+        };
+    }, [posts]);
+
+    const setEditView = (id, mood, entry) => {
+        // Go through the entries and change the view of the post ID to true
+        // Optimize later
+        setEditMood('')
+        setEntries(posts.map(post => {
+            if(post.id === id){
+                if( post.view === true ) {
+                    post.view = false;
+                } else {
+                    post.view = true;
+                }
+                return post;
+            } else {
+                return post;
+            }
+        }));
+        setEditMood(mood)
+
+    }
 
     const createEntry = () => {
         const post = { title, mood, entry }
@@ -17,8 +45,8 @@ const Journal = ({ posts, postEntry }) => {
         setTitle('');
         setMood('');
         setEntry('');
-    }
-
+    };
+    
     return(
         <div id='journal-page'>
             <hr />
@@ -28,9 +56,35 @@ const Journal = ({ posts, postEntry }) => {
                     entries.map(entry => {
                         return(
                             <li key={ entry.id }>
-                                <h4>{ entry.title } - { entry.datePosted }</h4>
-                                <h3>Mood: { entry.mood }</h3>
-                                <p>{ entry.entry }</p>
+                                {
+                                    !entry.view && 
+                                    <div>
+                                        <h4>{ entry.title } - { entry.datePosted }</h4>
+                                        <h3>Mood: { entry.mood }</h3>
+                                        <p>{ entry.entry }</p>
+                                        <button id='edit-journal' onClick={() => setEditView(entry.id, entry.mood, entry.entry)}>Edit</button>
+                                    </div>
+                                }
+                                {
+                                    entry.view &&
+                                    <div>
+                                        <h4>{ entry.title } - { entry.datePosted }</h4>
+                                        <label>Mood: 
+                                            <select onChange={ ev => setEditMood(ev.target.value) } value={ editMood }>
+                                                <option value=''>-- Select Mood --</option>
+                                                    {
+                                                        moods.map(mood => {
+                                                            return(
+                                                                <option value={ mood } key={ mood }>{ mood }</option>
+                                                            )
+                                                        })
+                                                    }
+                                            </select>
+                                        </label>
+                                        <button>Submit</button>
+                                        <button onClick={() => setEditEntries(() => setEditView(entry.id, entry.mood, entry.entry)) }>Back</button>
+                                    </div>
+                                }
                             </li>
                         )
                     })

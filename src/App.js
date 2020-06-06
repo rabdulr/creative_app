@@ -35,15 +35,6 @@ const App = () => {
         }
     }, [auth]);
 
-    useEffect(() => {
-        if(auth.id){
-            axios.get(`/api/checkIns/getCheckIns/${auth.id}`, login.headers())
-                .then(checkIns => setCheckIn(checkIns.data))
-                .catch(ex => setError(ex));
-        }
-    }, [auth]);
-
-
     // Login options, unsure how to move out of app main space
     const exchangeTokenForAuth = async() => {
         const response = await axios.get('/api/auth', login.headers())
