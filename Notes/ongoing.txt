@@ -13,6 +13,7 @@ Journal -
 
     To do -
         1. Option to go to an entry and edit the contents of the post
+            - 6/6 Edit button now works, need to create submit option to update form
 
 Check-In - 
     Currently -

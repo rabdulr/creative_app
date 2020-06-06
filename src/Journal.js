@@ -19,9 +19,9 @@ const Journal = ({ posts, postEntry }) => {
         };
     }, [posts]);
 
+    // Go through the entries and change the view of the post ID to true
+    // Optimize / dry out later
     const setEditView = (id, mood, entry) => {
-        // Go through the entries and change the view of the post ID to true
-        // Optimize later
         setEditMood('')
         setEntries(posts.map(post => {
             if(post.id === id){
