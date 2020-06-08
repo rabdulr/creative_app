@@ -60,11 +60,22 @@ const App = () => {
     // Post options, unsure how to move out of main space
     const postEntry = (journalEntry) => {
         axios.post('/api/posts/postEntry', { ...journalEntry, userId: auth.id }, login.headers())
-            .then(entry => {
-                setPosts([...posts, entry.data])
-            })
+            .then(entry => setPosts([...posts, entry.data]))
             .catch(ex => setError(ex))
     };
+
+    // Updation option for Journal Entry
+    const updateEntry = ( post ) => {
+        axios.put('/api/posts/updateEntry', { ...post, userId: auth.id }, login.headers())
+            .then(updatedPost => setPosts(posts.map(_post => {
+                if(_post.id === updatedPost.data.id){
+                    return updatedPost.data
+                } else {
+                    return _post;
+                }
+            })))
+            .catch(ex => setError(ex))
+    }
 
     // Mood/Check-in options, unsure how to move out of main space
     const addMood = (newMood) => {
@@ -107,7 +118,7 @@ const App = () => {
                     <div>
                         <Landing />
                         <User auth={ auth } />
-                        <Journal posts={ posts } postEntry={ postEntry }/>
+                        <Journal posts={ posts } postEntry={ postEntry } updateEntry={ updateEntry }/>
                         <CheckIn checks={ checkIn } addMood={ addMood }/>
                     </div>
             }

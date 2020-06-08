@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { moods } from '../methods';
 
-const Journal = ({ posts, postEntry }) => {
+const Journal = ({ posts, postEntry, updateEntry }) => {
     const [entries, setEntries] = useState([]);
-    const [editEntry, setEditEntries] = useState({});
     const [title, setTitle] = useState('');
     const [mood, setMood] = useState('');
     const [entry, setEntry] = useState('');
-    const [editMood, setEditMood] = useState('')
+    const [editMood, setEditMood] = useState('');
+    const [editTitle, setEditTitle] = useState('')
+    const [editCurrentEntry, setEditCurrentEntry] = useState('');
 
     useEffect(() => {
         if(posts) {
             setEntries(posts.map(post => {
-                console.log(post);
                 post.display = false;
                 return post;
             }));
@@ -21,8 +21,10 @@ const Journal = ({ posts, postEntry }) => {
 
     // Go through the entries and change the view of the post ID to true
     // Optimize / dry out later
-    const setEditView = (id, mood, entry) => {
-        setEditMood('')
+    const setEditView = (id, mood, entry, title) => {
+        setEditCurrentEntry('')
+        setEditMood('');
+        setEditTitle('');
         setEntries(posts.map(post => {
             if(post.id === id){
                 if( post.view === true ) {
@@ -35,8 +37,9 @@ const Journal = ({ posts, postEntry }) => {
                 return post;
             }
         }));
-        setEditMood(mood)
-
+        setEditMood(mood);
+        setEditCurrentEntry(entry);
+        setEditTitle(title);
     }
 
     const createEntry = () => {
@@ -46,6 +49,16 @@ const Journal = ({ posts, postEntry }) => {
         setMood('');
         setEntry('');
     };
+
+    // Currently have to set props again in this component
+    // because posts from Top level is not being automatically updated
+    const setUpdateEntry = (id) => {
+        const post = { id, mood: editMood, entry: editCurrentEntry, title: editTitle };
+        updateEntry(post);
+        setEditMood('');
+        setEditCurrentEntry('');
+        setEditTitle('');
+    }
     
     return(
         <div id='journal-page'>
@@ -62,13 +75,15 @@ const Journal = ({ posts, postEntry }) => {
                                         <h4>{ entry.title } - { entry.datePosted }</h4>
                                         <h3>Mood: { entry.mood }</h3>
                                         <p>{ entry.entry }</p>
-                                        <button id='edit-journal' onClick={() => setEditView(entry.id, entry.mood, entry.entry)}>Edit</button>
+                                        <button id='edit-journal' onClick={() => setEditView(entry.id, entry.mood, entry.entry, entry.title)}>Edit</button>
                                     </div>
                                 }
                                 {
                                     entry.view &&
                                     <div>
-                                        <h4>{ entry.title } - { entry.datePosted }</h4>
+                                        <label>Title: 
+                                            <input type='text' onChange={ ev => setEditTitle(ev.target.value) } value={ editTitle }></input>
+                                        </label>
                                         <label>Mood: 
                                             <select onChange={ ev => setEditMood(ev.target.value) } value={ editMood }>
                                                 <option value=''>-- Select Mood --</option>
@@ -81,8 +96,9 @@ const Journal = ({ posts, postEntry }) => {
                                                     }
                                             </select>
                                         </label>
-                                        <button>Submit</button>
-                                        <button onClick={() => setEditEntries(() => setEditView(entry.id, entry.mood, entry.entry)) }>Back</button>
+                                        <label>Edit Entry: <textarea onChange={ ev => setEditCurrentEntry(ev.target.value) } value={ editCurrentEntry } rows='5'></textarea></label>
+                                        <button onClick={() => setUpdateEntry(entry.id)}>Submit</button>
+                                        <button onClick={() => setEditView( entry.id, entry.mood, entry.entry, entry.title ) }>Back</button>
                                     </div>
                                 }
                             </li>

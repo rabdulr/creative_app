@@ -17,4 +17,10 @@ router.post('/postEntry', (req, res, next) => {
         .catch(next)
 });
 
+router.put('/updateEntry', (req, res, next) => {
+    posts.updatePost(req.body)
+        .then(post => res.send(post))
+        .catch(next)
+})
+
 module.exports = { router }

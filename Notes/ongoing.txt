@@ -10,9 +10,10 @@ Current Scope -
 Journal -
     Currently -
         1. User is able to create a journal entry
+        2. User is able to update journal entry
 
     To do -
-        1. Option to go to an entry and edit the contents of the post
+        DONE - 1. Option to go to an entry and edit the contents of the post
             - 6/6 Edit button now works, need to create submit option to update form
 
 Check-In - 
