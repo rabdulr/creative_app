@@ -98,6 +98,7 @@ const Journal = ({ posts, postEntry, updateEntry }) => {
                                         </label>
                                         <label>Edit Entry: <textarea onChange={ ev => setEditCurrentEntry(ev.target.value) } value={ editCurrentEntry } rows='5'></textarea></label>
                                         <button onClick={() => setUpdateEntry(entry.id)}>Submit</button>
+                                        <button onClick={() => alert('Create delete function')}>Delete</button>
                                         <button onClick={() => setEditView( entry.id, entry.mood, entry.entry, entry.title ) }>Back</button>
                                     </div>
                                 }
