@@ -14,4 +14,4 @@ Diary prototype for users to collect thoughts on their creative process or block
 
 # Current State
 
-- Current checklist - [ checklist ](Notes/ongoing.txt)
+- Current checklist - [ checklist ](Notes/ongoing.md)
