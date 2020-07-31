@@ -1,5 +1,5 @@
 # Creative_App
-Shame Warrior Diary Project
+Creative Diary Project
 
 Diary prototype for users to collect thoughts on their creative process or blocks they may be experiencing.
 
@@ -11,3 +11,7 @@ Diary prototype for users to collect thoughts on their creative process or block
 - JWT
 - Node.js
 - Express
+
+# Current State
+
+- Current checklist - [ checklist ](Notes/ongoing.txt)
