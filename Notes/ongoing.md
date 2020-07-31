@@ -8,7 +8,7 @@ Current Scope -
 4. Landing Page
 
 Journal -
-    Currently -
+
         1. User is able to create a journal entry
         2. User is able to update journal entry
 
@@ -17,14 +17,14 @@ Journal -
             - 6/6 Edit button now works, need to create submit option to update form
 
 Check-In - 
-    Currently -
+
         1. User is able to check-in a mood
 
     To do -
         1. Option to go to an entry and edit the contents of the note
 
 User -
-    Currently -
+
         1. Able to see current user information excluding password
 
     To do -
@@ -33,6 +33,7 @@ User -
         3. Password change by verifying personal information
 
 Landing Page -
+
     To do -
         1. Analytics of how many posts
             - trends of moods
